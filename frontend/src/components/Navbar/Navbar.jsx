@@ -40,7 +40,7 @@ const Navbar = () => {
           <Link to={"/login"} className='px-4 py-1 border-1 rounded-md border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300'>Login</Link>
           <Link to={"/SignUp"} className='px-4 py-1 border-1 rounded-md border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300 bg-blue-500'>SignUp</Link>
           </div>
-          <button className='text-white text-2xl md:hidden' onClick={()=> Mobilenav === "hidden" ? setMobilenav("block") : setMobilenav("hidden") }>
+          <button className='text-white text-2xl md:hidden block' onClick={()=> Mobilenav === "hidden" ? setMobilenav("block") : setMobilenav("hidden") }>
             <FaGripLines />
           </button>
         </div>
@@ -48,10 +48,10 @@ const Navbar = () => {
 
     <div className={`${Mobilenav} mobile-div bg-zinc-800 h-screen absolute top-0 left-0 w-full z-40 flex flex-col items-center justify-center`}>
        { links.map((item, index)=>(
-              <Link to={item.link} className='hover:text-blue-500 transition-all duration-300 mb-8 text-2xl font-semibold' key={index}>{item.title}</Link>
+              <Link to={item.link} className='hover:text-blue-500 transition-all duration-300 mb-8 text-2xl font-semibold' key={index}  onClick={()=> Mobilenav === "hidden" ? setMobilenav("block") : setMobilenav("hidden") }>{item.title}</Link>
             ))}
-            <Link to={"/login"} className='text-2xl font-semibold px-6 py-2 border-1 rounded-md border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300 mb-8'>Login</Link>
-          <Link to={"/SignUp"} className='text-2xl font-semibold px-6 py-2 border-1 rounded-md border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300 bg-blue-500 mb-8'>SignUp</Link>
+            <Link to={"/login"} className='text-2xl font-semibold px-6 py-2 border-1 rounded-md border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300 mb-8' onClick={()=> Mobilenav === "hidden" ? setMobilenav("block") : setMobilenav("hidden") }>Login</Link>
+          <Link to={"/SignUp"} className='text-2xl font-semibold px-6 py-2 border-1 rounded-md border-blue-500 hover:bg-white hover:text-zinc-800 transition-all duration-300 bg-blue-500 mb-8' onClick={()=> Mobilenav === "hidden" ? setMobilenav("block") : setMobilenav("hidden") }>SignUp</Link>
     </div>
     </div>
     </>

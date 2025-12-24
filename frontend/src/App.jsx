@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
+import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/SignUp" element={<SignUp />}/>
            <Route path="/cart" element={<Cart />}/>
             <Route path="/profile" element={<Profile />}/>
+             <Route path="/view-book-detail/:id" element={<ViewBookDetails />}/>
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -25,7 +25,7 @@ router.post('/sign-up', async(req, res)=>{
         }
          // check password length
         if(password.length < 5){
-            return res.status(400).json({message: "password length should be greater than 5"})
+            return res.status(400).json({message: "password length should be greater than 4"})
         }
         const hashpassword = await bcrypt.hash(password, 10);
         const newuser = await new User({
