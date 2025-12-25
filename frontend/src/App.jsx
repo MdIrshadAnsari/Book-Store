@@ -1,30 +1,43 @@
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import AllBooks from "./pages/AllBooks"
-import Login from "./pages/Login"
-import SignUp from "./pages/SignUp"
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AllBooks from "./pages/AllBooks";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import { Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { authAction } from "./store/auth";
+import { useEffect } from "react";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const role = useSelector((state)=> state.auth.role)
+  useEffect(()=>{
+    if(
+      localStorage.getItem("id") &&
+      localStorage.getItem("token") && 
+      localStorage.getItem("role")
+    ){
+      dispatch(authAction.login())
+      dispatch(authAction.changeRole(localStorage.getItem("role")))
+    }
+  }, [])
   return (
     <div>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/all-books" element={<AllBooks />}/>
-          <Route path="/Login" element={<Login />}/>
-          <Route path="/SignUp" element={<SignUp />}/>
-           <Route path="/cart" element={<Cart />}/>
-            <Route path="/profile" element={<Profile />}/>
-             <Route path="/view-book-detail/:id" element={<ViewBookDetails />}/>
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/all-books" element={<AllBooks />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/view-book-detail/:id" element={<ViewBookDetails />} />
+      </Routes>
+      <Footer />
     </div>
   );
 };
