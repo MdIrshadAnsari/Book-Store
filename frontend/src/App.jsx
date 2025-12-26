@@ -11,6 +11,9 @@ import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "./store/auth";
 import { useEffect } from "react";
+import Favourites from "./components/Profile/Favourites"
+import UserorderHistory from "./components/Profile/UserorderHistory"
+import Setting from "./components/Profile/Setting";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,7 +37,11 @@ const App = () => {
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />}>
+        <Route index element={<Favourites/>}/>
+        <Route path="/profile/orderHistory" element={<UserorderHistory/>}/>
+          <Route path="/profile/settings" element={<Setting/>}/>
+        </Route>
         <Route path="/view-book-detail/:id" element={<ViewBookDetails />} />
       </Routes>
       <Footer />

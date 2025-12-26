@@ -4,23 +4,23 @@ const userschema = mongoose.Schema(
   {
     username: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     address: {
       type: String,
-      require: true,
+      required: true,
     },
     avatar: {
       type: String,
-      default: "",
+      default: "default.webp",
     },
     role: {
       type: String,
