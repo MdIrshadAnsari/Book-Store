@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const ViewBookDetails = () => {
   const { id } = useParams();
@@ -31,6 +33,22 @@ const ViewBookDetails = () => {
     );
   }
 
+const headers = {
+    id: localStorage.getItem("id"),
+    authorization: `Bearer ${localStorage.getItem("token")}`,
+    bookid: id
+  };
+
+  const handlefavourite = async()=>{
+    const response = await axios.put("http://localhost:3000/book/add-book-to-favourite",{},{headers})
+    alert(response.data.message)
+  }
+
+ const handleCart = async()=>{
+  const response = await axios.put("http://localhost:3000/book/add-to-cart",{}, {headers})
+   alert(response.data.message)
+ }
+
   return (
     <div className="p-5 md:p-10 bg-zinc-900 flex flex-col lg:flex-row gap-16">
       <div className="w-full lg:w-1/2">
@@ -38,19 +56,34 @@ const ViewBookDetails = () => {
           <img
             src={Data.url}
             alt={Data.title}
-            className="h-[30vh] lg:h-[65vh] w-full lg:w-[30vw] rounded-md object-fit p-8"
+            className="h-[30vh] lg:h-[65vh] w-full lg:w-[30vw] rounded-md object-fit"
           />
           {isLoggedIn && role === "user" && (
             <div className="flex flex-row lg:flex-col items-start gap-3 mt-4 lg:mt-0">
               
-              <button className="bg-white text-red-600 text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2">
+              <button className="bg-white text-red-600 text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2" onClick={handlefavourite}>
                 <FaHeart />
                 <span className="lg:hidden">Favourites</span>
               </button>
 
-              <button className="bg-white text-blue-500 text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2">
+              <button className="bg-white text-blue-500 text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2" onClick={handleCart}>
                 <FaShoppingCart />
                 <span className="lg:hidden">Add Cart</span>
+              </button>
+            </div>
+          )}
+
+           {isLoggedIn && role === "admin" && (
+            <div className="flex flex-row lg:flex-col items-start gap-3 mt-4 lg:mt-0">
+              
+              <button className="bg-white text-black text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2">
+                <FaEdit />
+                <span className="lg:hidden">Edit</span>
+              </button>
+
+              <button className="bg-white text-red-500 text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2">
+                <MdDelete />
+                <span className="lg:hidden">Delete Book</span>
               </button>
 
             </div>
