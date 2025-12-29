@@ -19,7 +19,7 @@ const handleremovebook = async()=>{
       <Link to={`/view-book-detail/${data._id}`}>
         <div>
           <div className="bg-zinc-900 h-20vh overflow-hidden">
-            <img className="rounded-md" w-full src={data.url} alt="/" />
+            <img className="rounded-md w-full"  src={data.url} alt="/" />
           </div>
           <h2 className="text-center mt-5 text-xl font-semibold text-zinc-200">
             {data.title}

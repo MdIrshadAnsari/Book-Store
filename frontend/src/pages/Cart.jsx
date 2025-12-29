@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader/Loader";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [Cart, setCart] = useState([]);
   const [Total, setTotal] = useState(0);
-
+  const navigate = useNavigate()
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`
@@ -21,17 +22,37 @@ const Cart = () => {
     const fetch = async()=>{
       const response = await axios.get("http://localhost:3000/book/get-user-cart", {headers})
       setCart(response.data.data)
-      //console.log(response)
     }
     fetch()
   }, [Cart])
 
+  useEffect(()=>{
+    if(Cart && Cart.length > 0){
+      let total = 0;
+      Cart.map((item, index)=>(
+        total+=item.price
+      ))
+      setTotal(total);
+      total = 0;
+    }
+  }, [Cart])
+
+  const placeOrder = async()=>{
+    try {
+       const response = await axios.post("http://localhost:3000/book/place-order", {order:Cart}, {headers})
+       alert(response.data.message)
+       navigate("/profile/orderHistory")
+  } catch(error) {
+      console.log(error.message)
+    }
+  }
+
   return (
-    <div className="bg-zinc-900 px-12 h-screen py-8">
-      {!Cart && <Loader />}
+    <div className="bg-zinc-900 px-12 min-h-screen py-8">
+      {!Cart && <div className="w-full h-screen bg-zinc-900 flex items-center justify-center"><Loader /> </div>}
       {Cart && Cart.length === 0 && (
-        <div className="h-screen">
-          <div className="h-[100%] flex items-center justify-center flex-col">
+        <div className="min-h-screen">
+          <div className="h-screen flex items-center justify-center flex-col">
             <h1 className="text-5xl lg:text-6xl font-semibold text-zinc-400">
               Empty Cart
             </h1>
@@ -80,6 +101,19 @@ const Cart = () => {
             </div>
           ))}
         </>
+      )}
+      {Cart && Cart.length > 0 &&(
+        <div className="mt-4 w-full flex items-center justify-end">
+           <div className="p-4 bg-zinc-800 rounded">
+          <h1 className="text-3xl text-zinc-200 font-semibold">Total Amount</h1>
+          <div className="mt-3 flex items-center justify-between text-xl text-zinc-200">
+            <h2>{Cart.length} Books</h2> <h2>$ {Total}</h2>
+          </div>
+          <div className="w-[100%] mt-3">
+            <button className="bg-zinc-100 rounded px-4 py-2 flex justify-center w-full font-semibold hover:bg-zinc-200" onClick={placeOrder}>Place your order</button>
+          </div>
+           </div>
+        </div>
       )}
     </div>
   );
