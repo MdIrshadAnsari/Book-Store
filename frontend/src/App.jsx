@@ -14,6 +14,8 @@ import { useEffect } from "react";
 import Favourites from "./components/Profile/Favourites"
 import UserorderHistory from "./components/Profile/UserorderHistory"
 import Setting from "./components/Profile/Setting";
+import AllOrders from "./pages/AllOrders";
+import AddBooks from "./pages/AddBooks";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,7 +40,8 @@ const App = () => {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />}>
-        <Route index element={<Favourites/>}/>
+        {role === "user" ? (<Route index element={<Favourites/>}/>) : (<Route index element={<AllOrders/>}/>)}
+        {role === "admin" && <Route path="/profile/add-book" element={<AddBooks/>}/>}
         <Route path="/profile/orderHistory" element={<UserorderHistory/>}/>
           <Route path="/profile/settings" element={<Setting/>}/>
         </Route>

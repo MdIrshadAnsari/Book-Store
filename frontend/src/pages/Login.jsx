@@ -41,10 +41,10 @@ const Login = () => {
   };
   return (
     <div className="h-screen bg-zinc-900 items-center justify-center flex flex-col">
-      <div className=" p-15 md:w-[25vw] bg-zinc-800 rounded-md md:p-5">
+      <div className=" p-15 md:w-[25vw] bg-zinc-800 rounded-md md:p-5 h-[60%]">
         <div>
           <form>
-            <h1 className="text-white text-2xl">Login</h1>
+            <h1 className="text-white text-2xl mb-10">Login</h1>
             <label className="mt-3 block text-zinc-500">Username</label>
             <input
               className="px-3 py-2 rounded-md mt-2 w-full bg-zinc-900 text-zinc-200"

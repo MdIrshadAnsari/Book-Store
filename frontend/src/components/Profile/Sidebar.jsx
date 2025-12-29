@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { authAction } from "../../store/auth";
 
 const Sidebar = ({ data }) => {
+  const dispatch = useDispatch()
+  const history = useNavigate()
+  const role = useSelector((state)=> state.auth.role)
   return (
     <div className="bg-zinc-800 rounded-md p-6 flex flex-col items-center justify-between h-full text-white">
       {/* Profile Info */}
@@ -20,7 +25,8 @@ const Sidebar = ({ data }) => {
         <div className="w-full mt-4 h-[1px] bg-zinc-600"></div>
 
         {/* Links */}
-        <div className="w-full mt-4 flex flex-col gap-2">
+        {role === "user" && (
+                 <div className="w-full mt-4 flex flex-col gap-2">
           <Link
             to="/profile"
             className="py-3 px-2 rounded-md text-center font-semibold hover:bg-zinc-900 transition"
@@ -40,10 +46,36 @@ const Sidebar = ({ data }) => {
             Settings
           </Link>
         </div>
+        )}
+                {role === "admin" && (
+                 <div className="w-full mt-20 flex flex-col gap-2">
+          <Link
+            to="/profile"
+            className="py-3 px-2 rounded-md text-center font-semibold hover:bg-zinc-900 transition"
+          >
+            All Order
+          </Link>
+          <Link
+            to="/profile/add-book"
+            className="py-3 px-2 rounded-md text-center font-semibold hover:bg-zinc-900 transition"
+          >
+           Add book
+          </Link>
+        </div>
+        )}
       </div>
 
+      
+
       {/* Logout */}
-      <button className="bg-zinc-900 w-full mt-6 text-white font-semibold flex items-center justify-center py-2 rounded-md hover:bg-white hover:text-zinc-900 transition gap-3">
+      <button className="bg-zinc-900 w-full mt-6 text-white font-semibold flex items-center justify-center py-2 rounded-md hover:bg-white hover:text-zinc-900 transition gap-3" onClick={()=>{
+        dispatch(authAction.logout())
+        dispatch(authAction.changeRole("user"))
+        localStorage.clear("id")
+        localStorage.clear("token")
+        localStorage.clear("role")
+        history("/")
+      }}>
         Log Out <FaArrowRightFromBracket />
       </button>
     </div>

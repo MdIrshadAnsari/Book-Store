@@ -22,11 +22,22 @@ const Navbar = () => {
       title: "Profile",
       link: "/profile"
     },
+     {
+      title: "Admin Profile",
+      link: "/profile"
+    },
   ]
   const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
+  const role = useSelector((state)=> state.auth.role)
   // console.log(isLoggedIn)
   if(isLoggedIn === false){
     links.splice(2, 2)
+  }
+      if(isLoggedIn === true && role === "user"){
+    links.splice(4, 1)
+  }
+    if(isLoggedIn === true && role === "admin"){
+    links.splice(3, 1)
   }
   const [Mobilenav, setMobilenav] = useState("hidden")
   return (
