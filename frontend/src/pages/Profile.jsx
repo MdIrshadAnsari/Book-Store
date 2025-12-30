@@ -25,7 +25,7 @@ const Profile = () => {
 
   if (!profile) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-zinc-900">
+      <div className="w-full h-screen flex items-center justify-center bg-zinc-900 text-white">
         <Loader />
       </div>
     );

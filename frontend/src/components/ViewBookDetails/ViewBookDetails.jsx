@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../Loader/Loader";
-import { useNavigate, useParams } from "react-router-dom";
+import {Link, useNavigate, useParams } from "react-router-dom";
 import { GrLanguage } from "react-icons/gr";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -83,10 +83,10 @@ const headers = {
            {isLoggedIn && role === "admin" && (
             <div className="flex flex-row lg:flex-col items-start gap-3 mt-4 lg:mt-0">
               
-              <button className="bg-white text-black text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2">
+              <Link to={`/updatebook/${id}`} className="bg-white text-black text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2">
                 <FaEdit />
                 <span className="lg:hidden">Edit</span>
-              </button>
+              </Link>
 
               <button className="bg-white text-red-500 text-xl lg:text-3xl p-2 rounded-md lg:rounded-full flex items-center gap-2" onClick={deletebook}>
                 <MdDelete />

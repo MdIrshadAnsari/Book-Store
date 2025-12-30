@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateBook = () => {
   const [Data, setData] = useState({
@@ -10,10 +11,13 @@ const UpdateBook = () => {
     desc: "",
     language: "",
   });
+  const {id} = useParams()
+  const navigate = useNavigate()
 
   const headers = {
     id: localStorage.getItem("id"),
     authorization: `Bearer ${localStorage.getItem("token")}`,
+    bookid: id,
   };
   const change = (e) => {
     const { name, value } = e.target;
@@ -32,8 +36,8 @@ const UpdateBook = () => {
       ) {
         alert("All fields are required");
       } else {
-        const response = await axios.post(
-          "http://localhost:3000/book/add-book",
+        const response = await axios.put(
+          "http://localhost:3000/book/update-book",
           Data,
           { headers }
         );
@@ -46,16 +50,26 @@ const UpdateBook = () => {
           language: "",
         });
         alert(response.data.message);
+        navigate(`/view-book-detail/${id}`)
       }
     } catch (error) {
       alert(error.response.data.message);
     }
   };
+
+  useEffect(()=>{
+    const fetch = async()=>{
+      const response = await axios.get(`http://localhost:3000/book/get-book-detail/${id}`)
+      setData(response.data.data)
+    }
+    fetch()
+  }, [])
+
   return (
     <div>
-      <div className="h-[100%] p-0 md:p-4">
+      <div className="bg-zinc-900 h-[100%] p-0 md:p-4">
         <h1 className="text-3xl md:text-5xl font-semibold text-zinc-500 mb-8">
-          Add Book
+          Update Book
         </h1>
         <div className="p-4 bg-zinc-800 rounded">
           <div>
@@ -146,10 +160,10 @@ const UpdateBook = () => {
             ></textarea>
           </div>
           <button
-            className="mt-4 px-3 bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition-all duration-300"
+            className="mt-4 px-3 bg-yellow-500 text-white font-semibold py-2 rounded hover:bg-yellow-600 transition-all duration-300"
             onClick={submit}
           >
-            Add Book
+            Update Book
           </button>
         </div>
       </div>
