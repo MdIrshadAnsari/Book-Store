@@ -81,7 +81,7 @@ const AddBooks = () => {
         </div>
         <div className="mt-4">
             <label htmlFor="" className="text-zinc-400">
-                Description of book
+                Description of Book
             </label>
             <textarea className="w-full mt-2 bg-zinc-900 text-zinc-100 p-2 outline-none" rows="5" placeholder="description of book" name="desc" required value={Data.desc} onChange={change} id=""></textarea>
         </div>
