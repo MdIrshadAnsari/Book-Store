@@ -19,7 +19,7 @@ const ViewBookDetails = () => {
   useEffect(() => {
     const fetchBook = async () => {
       const response = await axios.get(
-        `http://localhost:3000/book/get-book-detail/${id}`
+        `${import.meta.env.VITE_API_URL}/book/get-book-detail/${id}`
       );
       setData(response.data.data);
     };
@@ -41,17 +41,17 @@ const headers = {
   };
 
   const handlefavourite = async()=>{
-    const response = await axios.put("http://localhost:3000/book/add-book-to-favourite",{},{headers})
+    const response = await axios.put(`${import.meta.env.VITE_API_URL}/book/add-book-to-favourite`,{},{headers})
     alert(response.data.message)
   }
 
  const handleCart = async()=>{
-  const response = await axios.put("http://localhost:3000/book/add-to-cart",{}, {headers})
+  const response = await axios.put(`${import.meta.env.VITE_API_URL}/book/add-to-cart`,{}, {headers})
    alert(response.data.message)
  }
 
  const deletebook = async()=>{
-  const response = await axios.delete("http://localhost:3000/book/delete-book", {headers})
+  const response = await axios.delete(`${import.meta.env.VITE_API_URL}/book/delete-book`, {headers})
   alert(response.data.message)
   navigate("/")
  }

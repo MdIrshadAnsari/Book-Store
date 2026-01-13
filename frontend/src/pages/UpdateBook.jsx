@@ -37,7 +37,7 @@ const UpdateBook = () => {
         alert("All fields are required");
       } else {
         const response = await axios.put(
-          "http://localhost:3000/book/update-book",
+          `${import.meta.env.VITE_API_URL}/book/update-book`,
           Data,
           { headers }
         );
@@ -59,7 +59,7 @@ const UpdateBook = () => {
 
   useEffect(()=>{
     const fetch = async()=>{
-      const response = await axios.get(`http://localhost:3000/book/get-book-detail/${id}`)
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/book/get-book-detail/${id}`)
       setData(response.data.data)
     }
     fetch()

@@ -16,7 +16,7 @@ const AllOrders = () => {
     const fetch = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/book/get-all-order",
+          `${import.meta.env.VITE_API_URL}/book/get-all-order`,
           { headers }
         );
         setData(response.data.data || []);
@@ -36,7 +36,7 @@ const AllOrders = () => {
       const id = Data[index]._id;
 
       const response = await axios.put(
-        `http://localhost:3000/book/update-status/${id}`,
+        `${import.meta.env.VITE_API_URL}/book/update-status/${id}`,
         { status: statusValue },
         { headers }
       );

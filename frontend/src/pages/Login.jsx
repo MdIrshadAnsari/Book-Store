@@ -25,7 +25,7 @@ const Login = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:3000/user/sign-in",
+          `${import.meta.env.VITE_API_URL}/user/sign-in`,
           values
         );
         dispatch(authAction.login())

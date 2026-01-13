@@ -14,13 +14,13 @@ const Cart = () => {
   }
    
   const deleteItem = async(bookid)=>{
-    const response  = await axios.put(`http://localhost:3000/book/remove-from-cart/${bookid}`, {}, {headers})
+    const response  = await axios.put(`${import.meta.env.VITE_API_URL}/book/remove-from-cart/${bookid}`, {}, {headers})
     alert(response.data.message)
   }
 
   useEffect(()=>{
     const fetch = async()=>{
-      const response = await axios.get("http://localhost:3000/book/get-user-cart", {headers})
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/book/get-user-cart`, {headers})
       setCart(response.data.data)
     }
     fetch()
@@ -39,7 +39,7 @@ const Cart = () => {
 
   const placeOrder = async()=>{
     try {
-       const response = await axios.post("http://localhost:3000/book/place-order", {order:Cart}, {headers})
+       const response = await axios.post(`${import.meta.env.VITE_API_URL}/book/place-order`, {order:Cart}, {headers})
        alert(response.data.message)
        navigate("/profile/orderHistory")
   } catch(error) {

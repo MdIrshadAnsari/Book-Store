@@ -33,7 +33,7 @@ const AddBooks = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:3000/book/add-book",
+          `${import.meta.env.VITE_API_URL}/book/add-book`,
           Data,
           { headers }
         );
@@ -48,7 +48,11 @@ const AddBooks = () => {
         alert(response.data.message);
       }
     } catch (error) {
-      alert(error.response.data.message);
+      alert(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong"
+      );
     }
   };
   return (

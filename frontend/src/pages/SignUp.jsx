@@ -29,7 +29,7 @@ const SignUp = () => {
         alert("All fields are required");
       } else {
         const response = await axios.post(
-          "http://localhost:3000/user/sign-up",
+          `${import.meta.env.VITE_API_URL}/user/sign-up`,
           values
         );
         alert(response.data.message);

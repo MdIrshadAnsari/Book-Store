@@ -15,7 +15,7 @@ const UserorderHistory = () => {
     const fetch = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/book/get-order-history",
+          `${import.meta.env.VITE_API_URL}/book/get-order-history`,
           { headers }
         );
         setOrderhistory(response.data.data);

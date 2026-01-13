@@ -10,7 +10,7 @@ const headers = {
 }
 
 const handleremovebook = async()=>{
-  const response = await axios.put("http://localhost:3000/book/remove-book-from-favourite", {}, {headers})
+  const response = await axios.put(`${import.meta.env.VITE_API_URL}/book/remove-book-from-favourite`, {}, {headers})
   alert(response.data.message)
 }
 
